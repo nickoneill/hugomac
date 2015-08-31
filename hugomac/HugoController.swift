@@ -11,10 +11,14 @@ import Foundation
 final class HugoController {
     static let sharedInstance = HugoController()
     
-    func publish() {
+    enum Error: ErrorType {
+        case DidntWork
+    }
+    
+    func publish() throws {
         let task = NSTask()
         task.launchPath = hugoPath()
-//        task.arguments = ["first-argument", "second-argument"]
+        task.arguments = ["-s", "/Users/nickoneill/Projects/blog.nickoneill.name"]
         
         let pipe = NSPipe()
         task.standardOutput = pipe
@@ -24,6 +28,8 @@ final class HugoController {
         let output = NSString(data: data, encoding: NSUTF8StringEncoding)
         
         print(output)
+        
+//        throw Error.DidntWork
     }
     
     private func hugoPath() -> String {
