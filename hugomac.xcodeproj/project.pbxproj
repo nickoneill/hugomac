@@ -11,6 +11,8 @@
 		D0E460151B94D7CA0082A5C3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E460141B94D7CA0082A5C3 /* ViewController.swift */; };
 		D0E460171B94D7CA0082A5C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E460161B94D7CA0082A5C3 /* Assets.xcassets */; };
 		D0E4601A1B94D7CA0082A5C3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0E460181B94D7CA0082A5C3 /* Main.storyboard */; };
+		D0E460221B94DEC00082A5C3 /* HugoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E460211B94DEC00082A5C3 /* HugoController.swift */; settings = {ASSET_TAGS = (); }; };
+		D0E460241B94E1340082A5C3 /* hugo_0.14_darwin_amd64 in Resources */ = {isa = PBXBuildFile; fileRef = D0E460231B94E1180082A5C3 /* hugo_0.14_darwin_amd64 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +22,8 @@
 		D0E460161B94D7CA0082A5C3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D0E460191B94D7CA0082A5C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D0E4601B1B94D7CA0082A5C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D0E460211B94DEC00082A5C3 /* HugoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HugoController.swift; sourceTree = "<group>"; };
+		D0E460231B94E1180082A5C3 /* hugo_0.14_darwin_amd64 */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = hugo_0.14_darwin_amd64; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +40,7 @@
 		D0E460061B94D7CA0082A5C3 = {
 			isa = PBXGroup;
 			children = (
+				D0E460231B94E1180082A5C3 /* hugo_0.14_darwin_amd64 */,
 				D0E460111B94D7CA0082A5C3 /* hugomac */,
 				D0E460101B94D7CA0082A5C3 /* Products */,
 			);
@@ -54,6 +59,7 @@
 			children = (
 				D0E460121B94D7CA0082A5C3 /* AppDelegate.swift */,
 				D0E460141B94D7CA0082A5C3 /* ViewController.swift */,
+				D0E460211B94DEC00082A5C3 /* HugoController.swift */,
 				D0E460161B94D7CA0082A5C3 /* Assets.xcassets */,
 				D0E460181B94D7CA0082A5C3 /* Main.storyboard */,
 				D0E4601B1B94D7CA0082A5C3 /* Info.plist */,
@@ -118,6 +124,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0E460241B94E1340082A5C3 /* hugo_0.14_darwin_amd64 in Resources */,
 				D0E460171B94D7CA0082A5C3 /* Assets.xcassets in Resources */,
 				D0E4601A1B94D7CA0082A5C3 /* Main.storyboard in Resources */,
 			);
@@ -131,6 +138,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0E460151B94D7CA0082A5C3 /* ViewController.swift in Sources */,
+				D0E460221B94DEC00082A5C3 /* HugoController.swift in Sources */,
 				D0E460131B94D7CA0082A5C3 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
