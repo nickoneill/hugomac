@@ -10,10 +10,6 @@ import Foundation
 import Cocoa
 
 class PreferencesViewController: NSViewController {
-    
-    init() {
-        super.init(nibName: "PreferencesViewController", bundle: nil)
-    }
-    
+        
     
 }

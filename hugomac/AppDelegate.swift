@@ -13,10 +13,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-2)
     let menuStatus = NSMenuItem()
     
-    lazy var preferences: NSWindowController = {
-        let generalViewController = Pre
-    }()
-
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         // Insert code here to initialize your application
         

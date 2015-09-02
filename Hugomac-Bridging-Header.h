@@ -6,4 +6,3 @@
 //  Copyright © 2015 Launch Apps. All rights reserved.
 //
 
-#import <MASPreferencesViewController.h>

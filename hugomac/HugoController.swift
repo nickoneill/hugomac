@@ -16,6 +16,8 @@ final class HugoController {
     }
     
     func publish() throws {
+        configPath()
+        
         let task = NSTask()
         task.launchPath = hugoPath()
         task.arguments = ["-s", "/Users/nickoneill/Projects/blog.nickoneill.name"]
@@ -32,6 +34,7 @@ final class HugoController {
 //        throw Error.DidntWork
     }
     
+    
     private func hugoPath() -> String {
         let bundlePath = (NSBundle.mainBundle().bundlePath as NSString)
         let contentsPath = (bundlePath as NSString).stringByAppendingPathComponent("Contents")
@@ -43,5 +46,11 @@ final class HugoController {
         print("contents: ",contents)
         
         return hugoPath
+    }
+    
+    private func configPath() {
+        let configPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.ApplicationSupportDirectory, NSSearchPathDomainMask.UserDomainMask, true).first!
+        
+        print("config", configPath)
     }
 }
