@@ -12,28 +12,61 @@ final class HugoController {
     static let sharedInstance = HugoController()
     
     enum Error: ErrorType {
+        case CantReachSupportPath
         case DidntWork
     }
     
     func publish() throws {
-        configPath()
-        
-        let task = NSTask()
-        task.launchPath = hugoPath()
-        task.arguments = ["-s", "/Users/nickoneill/Projects/blog.nickoneill.name"]
-        
-        let pipe = NSPipe()
-        task.standardOutput = pipe
-        task.launch()
-        
-        let data = pipe.fileHandleForReading.readDataToEndOfFile()
-        let output = NSString(data: data, encoding: NSUTF8StringEncoding)
-        
-        print(output)
-        
-//        throw Error.DidntWork
+//        writeConfig()
+//        linkContentDir()
+
+        if let supportPath = supportPath() {
+            let task = NSTask()
+            task.launchPath = hugoPath()
+            task.arguments = ["-s", supportPath]
+            
+            let pipe = NSPipe()
+            task.standardOutput = pipe
+            task.launch()
+            
+            let data = pipe.fileHandleForReading.readDataToEndOfFile()
+            let output = NSString(data: data, encoding: NSUTF8StringEncoding)
+            
+            print(output)
+        } else {
+            throw Error.CantReachSupportPath
+        }
     }
     
+    private func linkContentDir() {
+        let origContentURL = NSURL(fileURLWithPath: "/Users/nickoneill/Dropbox/Blog/content/", isDirectory: true)
+        let linkedContentURL = NSURL(fileURLWithPath: contentPath()!, isDirectory: true)
+ 
+        do {
+            try NSFileManager.defaultManager().linkItemAtURL(origContentURL, toURL: linkedContentURL)
+        } catch {
+            print("some linking error")
+        }
+        
+//        if let bookmarkData = try? origContentURL.bookmarkDataWithOptions(.SuitableForBookmarkFile, includingResourceValuesForKeys: nil, relativeToURL: nil) {
+//            // minimal and suitable for bookmark file
+//            let options = NSURLBookmarkFileCreationOptions(1 << 9 | 1 << 10)
+//            let success = try? NSURL.writeBookmarkData(bookmarkData, toURL: linkedContentURL, options: options)
+//            print("bookmark creation",success)
+//        }
+    }
+    
+    private func writeConfig() {
+        var config = Dictionary<String, AnyObject>()
+        config["baseurl"] = "http://blog.nickoneill.name/"
+        config["title"] = "authenticgeek"
+        config["canonifyurls"] = true
+        
+        if let configPath = configPath() {
+            let configData = try? NSJSONSerialization.dataWithJSONObject(config, options: .PrettyPrinted)
+            configData?.writeToFile(configPath, atomically: true)
+        }
+    }
     
     private func hugoPath() -> String {
         let bundlePath = (NSBundle.mainBundle().bundlePath as NSString)
@@ -48,9 +81,38 @@ final class HugoController {
         return hugoPath
     }
     
-    private func configPath() {
-        let configPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.ApplicationSupportDirectory, NSSearchPathDomainMask.UserDomainMask, true).first!
+    private func supportPath() -> String? {
+        let configPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.ApplicationSupportDirectory, NSSearchPathDomainMask.UserDomainMask, true).first
         
-        print("config", configPath)
+        if let configPath = configPath {
+            let supportPath = (configPath as NSString).stringByAppendingPathComponent("hugomac")
+            if !NSFileManager.defaultManager().fileExistsAtPath(supportPath) {
+                do {
+                    try NSFileManager.defaultManager().createDirectoryAtPath(supportPath, withIntermediateDirectories: false, attributes: nil)
+                } catch {
+                    return nil
+                }
+            }
+
+            return supportPath
+        }
+
+        return nil
+    }
+    
+    private func configPath() -> String? {
+        if let supportPath = supportPath() {
+            return (supportPath as NSString).stringByAppendingPathComponent("config.json")
+        }
+
+        return nil
+    }
+
+    private func contentPath() -> String? {
+        if let supportPath = supportPath() {
+            return (supportPath as NSString).stringByAppendingPathComponent("content")
+        }
+        
+        return nil
     }
 }
