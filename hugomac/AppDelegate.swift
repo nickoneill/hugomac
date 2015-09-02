@@ -36,7 +36,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func publish() {
         do {
-            menuStatus.title = "publishing..."
+            let timer = NSTimer(timeInterval: 1/30, target: self, selector: Selector("updateItem"), userInfo: nil, repeats: true)
+            NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSRunLoopCommonModes)
             try HugoController.sharedInstance.publish()
             menuStatus.title = "published"
             print("publish success")
@@ -45,6 +46,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             print("publish failed")
         } catch {
             print("something else")
+        }
+    }
+    
+    func updateItem() {
+        let time = NSDate()
+        let mod = time.timeIntervalSince1970 % 4
+        switch mod {
+        case 0..<1:
+            menuStatus.title = "publishing"
+        case 1..<2:
+            menuStatus.title = "publishing."
+        case 2..<3:
+            menuStatus.title = "publishing.."
+        case 3..<4:
+            menuStatus.title = "publishing..."
+        default:
+            break
         }
     }
 
