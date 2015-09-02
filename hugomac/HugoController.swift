@@ -13,6 +13,7 @@ final class HugoController {
     
     enum Error: ErrorType {
         case CantReachSupportPath
+        case CantReadHugoOutput
         case DidntWork
     }
     
@@ -32,7 +33,14 @@ final class HugoController {
             let data = pipe.fileHandleForReading.readDataToEndOfFile()
             let output = NSString(data: data, encoding: NSUTF8StringEncoding)
             
-            print(output)
+            if let output = output {
+                print(output)
+                if let logPath = logPath() {
+                    _ = try? output.writeToFile(logPath, atomically: true, encoding: NSUTF8StringEncoding)
+                }
+            } else {
+                throw Error.CantReadHugoOutput
+            }
         } else {
             throw Error.CantReachSupportPath
         }
@@ -47,13 +55,6 @@ final class HugoController {
         } catch {
             print("some linking error")
         }
-        
-//        if let bookmarkData = try? origContentURL.bookmarkDataWithOptions(.SuitableForBookmarkFile, includingResourceValuesForKeys: nil, relativeToURL: nil) {
-//            // minimal and suitable for bookmark file
-//            let options = NSURLBookmarkFileCreationOptions(1 << 9 | 1 << 10)
-//            let success = try? NSURL.writeBookmarkData(bookmarkData, toURL: linkedContentURL, options: options)
-//            print("bookmark creation",success)
-//        }
     }
     
     private func writeConfig() {
@@ -111,6 +112,14 @@ final class HugoController {
     private func contentPath() -> String? {
         if let supportPath = supportPath() {
             return (supportPath as NSString).stringByAppendingPathComponent("content")
+        }
+        
+        return nil
+    }
+    
+    private func logPath() -> String? {
+        if let supportPath = supportPath() {
+            return (supportPath as NSString).stringByAppendingPathComponent("hugo.log")
         }
         
         return nil
