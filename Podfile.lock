@@ -1,14 +1,37 @@
 PODS:
+  - AWSCore (2.2.5)
+  - AWSS3 (2.2.5):
+    - AWSCore (= 2.2.5)
   - Crashlytics-OSX (3.1.1)
   - Fabric-OSX (1.4.0):
     - Fabric-OSX/Base (= 1.4.0)
   - Fabric-OSX/Base (1.4.0)
 
 DEPENDENCIES:
+  - AWSCore (from `https://github.com/nickoneill/aws-sdk-ios.git`, commit `52576e4`)
+  - AWSS3 (from `https://github.com/nickoneill/aws-sdk-ios.git`, commit `52576e4`)
   - Crashlytics-OSX (~> 3.1)
   - Fabric-OSX (~> 1.4)
 
+EXTERNAL SOURCES:
+  AWSCore:
+    :commit: 52576e4
+    :git: https://github.com/nickoneill/aws-sdk-ios.git
+  AWSS3:
+    :commit: 52576e4
+    :git: https://github.com/nickoneill/aws-sdk-ios.git
+
+CHECKOUT OPTIONS:
+  AWSCore:
+    :commit: 52576e4
+    :git: https://github.com/nickoneill/aws-sdk-ios.git
+  AWSS3:
+    :commit: 52576e4
+    :git: https://github.com/nickoneill/aws-sdk-ios.git
+
 SPEC CHECKSUMS:
+  AWSCore: 76424e257ac78e8647c7a6b5c023446369f08d1d
+  AWSS3: 99feedfd2db49201e95c9f74c608518acbdae0a4
   Crashlytics-OSX: 04168ba83ba0c35f778c052f6eb2481b827042c4
   Fabric-OSX: 439c2a24d4cbf43dd570749ab09ce3cda59ecabb
 

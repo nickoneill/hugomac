@@ -11,15 +11,20 @@ import Foundation
 final class HugoController {
     static let sharedInstance = HugoController()
     
+    var uploadRequests: [AWSS3TransferManagerUploadRequest] = []
+    
     enum Error: ErrorType {
         case CantReachSupportPath
         case CantReadHugoOutput
+        case NoPublishDirectory
         case DidntWork
     }
     
     func publish() throws {
 //        writeConfig()
 //        linkContentDir()
+        _ = try? transferToS3()
+        return
 
         if let supportPath = supportPath() {
             let task = NSTask()
@@ -46,6 +51,58 @@ final class HugoController {
         }
     }
     
+    private func transferToS3() throws {
+        if let publicPath = publicPath() {
+            if !NSFileManager.defaultManager().fileExistsAtPath(publicPath) {
+                throw Error.NoPublishDirectory
+            }
+            
+            try makeUploadsForItemsInDirectory(publicPath)
+            
+            print("made these uploads: ",uploadRequests)
+
+            let credentialsProvider = AWSStaticCredentialsProvider(accessKey: "AKIAJI5JMQGAWZ6CKXOA", secretKey: "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")
+            let configuration = AWSServiceConfiguration(region: AWSRegionType.USWest1, credentialsProvider: credentialsProvider)
+            AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
+
+            let transferManager = AWSS3TransferManager.defaultS3TransferManager()
+            for req in uploadRequests {
+                transferManager.upload(req).continueWithBlock({ (awsTask) -> AnyObject! in
+//                    print("ok",awsTask)
+                    return nil
+                })
+            }
+        }
+    }
+    
+    private func makeUploadsForItemsInDirectory(path: String) throws {
+        for itemName in try NSFileManager.defaultManager().contentsOfDirectoryAtPath(path) {
+            let checkPath = (path as NSString).stringByAppendingPathComponent(itemName)
+            
+            var isDir: ObjCBool = false
+            if NSFileManager.defaultManager().fileExistsAtPath(checkPath, isDirectory: &isDir) {
+                if isDir {
+                    print("directory is",itemName)
+                    try makeUploadsForItemsInDirectory(checkPath)
+                } else {
+                    let uploadRequest = AWSS3TransferManagerUploadRequest()
+                    let pathURL = NSURL(fileURLWithPath: checkPath)
+                    uploadRequest.body = pathURL
+                    
+                    let components = (checkPath as NSString).pathComponents
+                    print("making upload for",itemName)
+                    let inPublicComponents = (components as NSArray).subarrayWithRange(NSMakeRange(7, components.count - 7)) as! [String]
+                    uploadRequest.key = NSString.pathWithComponents(inPublicComponents)
+                    uploadRequest.bucket = "nickoneill-blog-test"
+                    uploadRequests.append(uploadRequest)
+                }
+            } else {
+                print("no file exists at",itemName)
+            }
+        }
+
+    }
+    
     private func linkContentDir() {
         let origContentURL = NSURL(fileURLWithPath: "/Users/nickoneill/Dropbox/Blog/content/", isDirectory: true)
         let linkedContentURL = NSURL(fileURLWithPath: contentPath()!, isDirectory: true)
@@ -68,6 +125,8 @@ final class HugoController {
             configData?.writeToFile(configPath, atomically: true)
         }
     }
+    
+    // MARK - path generators
     
     private func hugoPath() -> String {
         let bundlePath = (NSBundle.mainBundle().bundlePath as NSString)
@@ -112,6 +171,14 @@ final class HugoController {
     private func contentPath() -> String? {
         if let supportPath = supportPath() {
             return (supportPath as NSString).stringByAppendingPathComponent("content")
+        }
+        
+        return nil
+    }
+    
+    private func publicPath() -> String? {
+        if let supportPath = supportPath() {
+            return (supportPath as NSString).stringByAppendingPathComponent("public")
         }
         
         return nil

@@ -6,3 +6,4 @@
 //  Copyright © 2015 Launch Apps. All rights reserved.
 //
 
+#import <AWSS3/AWSS3.h>
