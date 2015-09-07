@@ -7,3 +7,4 @@
 //
 
 #import <AWSS3/AWSS3.h>
+#import <CCNPreferencesWindowController/CCNPreferencesWindowController.h>

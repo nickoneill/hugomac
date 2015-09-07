@@ -12,6 +12,7 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate {
     let statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-2)
     let menuStatus = NSMenuItem()
+    let preferences = CCNPreferencesWindowController()
     
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         // Insert code here to initialize your application
@@ -28,10 +29,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         menu.addItem(menuStatus)
         menu.addItem(NSMenuItem.separatorItem())
         menu.addItem(NSMenuItem(title: "Publish", action: Selector("publish"), keyEquivalent: ""))
+        menu.addItem(NSMenuItem(title: "Preferences", action: Selector("prefs"), keyEquivalent: ","))
         menu.addItem(NSMenuItem(title: "Quit hugomac", action: Selector("terminate:"), keyEquivalent: "q"))
         
         statusItem.menu = menu
         
+        // set up preferences windows
+        preferences.centerToolbarItems = false
+        preferences.setPreferencesViewControllers([PreferencesViewController()])
+    }
+    
+    func prefs() {
+        preferences.showPreferencesWindow()
     }
     
     func publish() {

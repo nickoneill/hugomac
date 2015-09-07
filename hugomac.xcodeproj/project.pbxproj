@@ -15,7 +15,7 @@
 		D0E460221B94DEC00082A5C3 /* HugoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E460211B94DEC00082A5C3 /* HugoController.swift */; };
 		D0E460241B94E1340082A5C3 /* hugo_0.14_darwin_amd64 in Resources */ = {isa = PBXBuildFile; fileRef = D0E460231B94E1180082A5C3 /* hugo_0.14_darwin_amd64 */; };
 		D0E460261B9513790082A5C3 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E460251B9513790082A5C3 /* PreferencesViewController.swift */; };
-		D0E460291B9515510082A5C3 /* PreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0E460281B9515510082A5C3 /* PreferencesViewController.xib */; settings = {ASSET_TAGS = (); }; };
+		D0E460291B9515510082A5C3 /* hugomac.PreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0E460281B9515510082A5C3 /* hugomac.PreferencesViewController.xib */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +31,7 @@
 		D0E460231B94E1180082A5C3 /* hugo_0.14_darwin_amd64 */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = hugo_0.14_darwin_amd64; sourceTree = "<group>"; };
 		D0E460251B9513790082A5C3 /* PreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		D0E460271B9515130082A5C3 /* Hugomac-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hugomac-Bridging-Header.h"; sourceTree = "<group>"; };
-		D0E460281B9515510082A5C3 /* PreferencesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesViewController.xib; sourceTree = "<group>"; };
+		D0E460281B9515510082A5C3 /* hugomac.PreferencesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = hugomac.PreferencesViewController.xib; sourceTree = "<group>"; };
 		D88362590EF4BE8DACE77AD0 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -90,7 +90,7 @@
 				D0E460121B94D7CA0082A5C3 /* AppDelegate.swift */,
 				D0E460141B94D7CA0082A5C3 /* ViewController.swift */,
 				D0E460251B9513790082A5C3 /* PreferencesViewController.swift */,
-				D0E460281B9515510082A5C3 /* PreferencesViewController.xib */,
+				D0E460281B9515510082A5C3 /* hugomac.PreferencesViewController.xib */,
 				D0E460211B94DEC00082A5C3 /* HugoController.swift */,
 				D0E460161B94D7CA0082A5C3 /* Assets.xcassets */,
 				D0E460181B94D7CA0082A5C3 /* Main.storyboard */,
@@ -162,7 +162,7 @@
 				D0E460241B94E1340082A5C3 /* hugo_0.14_darwin_amd64 in Resources */,
 				D0E460171B94D7CA0082A5C3 /* Assets.xcassets in Resources */,
 				D0E4601A1B94D7CA0082A5C3 /* Main.storyboard in Resources */,
-				D0E460291B9515510082A5C3 /* PreferencesViewController.xib in Resources */,
+				D0E460291B9515510082A5C3 /* hugomac.PreferencesViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
