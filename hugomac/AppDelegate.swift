@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import CCNPreferencesWindowController
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -29,7 +30,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         menu.addItem(menuStatus)
         menu.addItem(NSMenuItem.separatorItem())
         menu.addItem(NSMenuItem(title: "Publish", action: Selector("publish"), keyEquivalent: ""))
-        menu.addItem(NSMenuItem(title: "Preferences", action: Selector("prefs"), keyEquivalent: ","))
+        menu.addItem(NSMenuItem(title: "Preferences", action: Selector("prefs"), keyEquivalent: ""))
         menu.addItem(NSMenuItem(title: "Quit hugomac", action: Selector("terminate:"), keyEquivalent: "q"))
         
         statusItem.menu = menu

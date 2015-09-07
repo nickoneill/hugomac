@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9A32659E723578E381C6D9DC /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97E204375E9CB5E384EA7C9D /* libPods.a */; };
+		1D5F07250201F500F7D7C18D /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BF92A06DDEF7EFAD19B6FED /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D0E460131B94D7CA0082A5C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E460121B94D7CA0082A5C3 /* AppDelegate.swift */; };
 		D0E460151B94D7CA0082A5C3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E460141B94D7CA0082A5C3 /* ViewController.swift */; };
 		D0E460171B94D7CA0082A5C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E460161B94D7CA0082A5C3 /* Assets.xcassets */; };
@@ -15,11 +15,11 @@
 		D0E460221B94DEC00082A5C3 /* HugoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E460211B94DEC00082A5C3 /* HugoController.swift */; };
 		D0E460241B94E1340082A5C3 /* hugo_0.14_darwin_amd64 in Resources */ = {isa = PBXBuildFile; fileRef = D0E460231B94E1180082A5C3 /* hugo_0.14_darwin_amd64 */; };
 		D0E460261B9513790082A5C3 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E460251B9513790082A5C3 /* PreferencesViewController.swift */; };
-		D0E460291B9515510082A5C3 /* hugomac.PreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0E460281B9515510082A5C3 /* hugomac.PreferencesViewController.xib */; settings = {ASSET_TAGS = (); }; };
+		D0E460291B9515510082A5C3 /* hugomac.PreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0E460281B9515510082A5C3 /* hugomac.PreferencesViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		97E204375E9CB5E384EA7C9D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BF92A06DDEF7EFAD19B6FED /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0AF7B671224BFB45DC9D350 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D0E4600F1B94D7CA0082A5C3 /* hugomac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hugomac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0E460121B94D7CA0082A5C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -40,7 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A32659E723578E381C6D9DC /* libPods.a in Frameworks */,
+				1D5F07250201F500F7D7C18D /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,7 +50,7 @@
 		653F5E45B559604906FC743B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				97E204375E9CB5E384EA7C9D /* libPods.a */,
+				4BF92A06DDEF7EFAD19B6FED /* Pods.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -111,6 +111,7 @@
 				D0E4600C1B94D7CA0082A5C3 /* Frameworks */,
 				D0E4600D1B94D7CA0082A5C3 /* Resources */,
 				B52B1CD12F63BDD3A57780C4 /* Copy Pods Resources */,
+				D2F95A2635F2E4A4FDF995DA /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -182,6 +183,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D2F95A2635F2E4A4FDF995DA /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F1599EC3EBCF1268AA157C4C /* Check Pods Manifest.lock */ = {

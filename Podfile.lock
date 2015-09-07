@@ -7,6 +7,7 @@ PODS:
   - Fabric-OSX (1.4.0):
     - Fabric-OSX/Base (= 1.4.0)
   - Fabric-OSX/Base (1.4.0)
+  - SwiftyUserDefaults (1.3.0)
 
 DEPENDENCIES:
   - AWSCore (from `git@github.com:nickoneill/aws-sdk-osx.git`, commit `52576e4`)
@@ -14,6 +15,8 @@ DEPENDENCIES:
   - CCNPreferencesWindowController
   - Crashlytics-OSX (~> 3.1)
   - Fabric-OSX (~> 1.4)
+  - SwiftyUserDefaults (from `https://github.com/radex/SwiftyUserDefaults`, branch
+    `next`)
 
 EXTERNAL SOURCES:
   AWSCore:
@@ -22,6 +25,9 @@ EXTERNAL SOURCES:
   AWSS3:
     :commit: 52576e4
     :git: git@github.com:nickoneill/aws-sdk-osx.git
+  SwiftyUserDefaults:
+    :branch: next
+    :git: https://github.com/radex/SwiftyUserDefaults
 
 CHECKOUT OPTIONS:
   AWSCore:
@@ -30,6 +36,9 @@ CHECKOUT OPTIONS:
   AWSS3:
     :commit: 52576e4
     :git: git@github.com:nickoneill/aws-sdk-osx.git
+  SwiftyUserDefaults:
+    :commit: fa28eff90a70e84c348b5d1f0993748610ff0505
+    :git: https://github.com/radex/SwiftyUserDefaults
 
 SPEC CHECKSUMS:
   AWSCore: 76424e257ac78e8647c7a6b5c023446369f08d1d
@@ -37,5 +46,6 @@ SPEC CHECKSUMS:
   CCNPreferencesWindowController: 2162438b1328d1d15ce5ee50289a57c7b3857c7a
   Crashlytics-OSX: 04168ba83ba0c35f778c052f6eb2481b827042c4
   Fabric-OSX: 439c2a24d4cbf43dd570749ab09ce3cda59ecabb
+  SwiftyUserDefaults: 507da0dcabec653f76ecab845635a6d220c1484a
 
 COCOAPODS: 0.37.2

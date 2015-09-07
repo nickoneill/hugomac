@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AWSS3
 
 final class HugoController {
     static let sharedInstance = HugoController()
