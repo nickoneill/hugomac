@@ -24,13 +24,14 @@ final class HugoController {
     func publish() throws {
 //        writeConfig()
 //        linkContentDir()
+//        linkThemeDir()
         _ = try? transferToS3()
         return
 
-        if let supportPath = supportPath() {
+        if let supportPath = supportPath(), let logPath = logPath() {
             let task = NSTask()
             task.launchPath = hugoPath()
-            task.arguments = ["-s", supportPath]
+            task.arguments = ["-s", supportPath, "-t", "current_theme"]
             
             let pipe = NSPipe()
             task.standardOutput = pipe
@@ -41,9 +42,6 @@ final class HugoController {
             
             if let output = output {
                 print(output)
-                if let logPath = logPath() {
-                    _ = try? output.writeToFile(logPath, atomically: true, encoding: NSUTF8StringEncoding)
-                }
             } else {
                 throw Error.CantReadHugoOutput
             }
@@ -89,6 +87,7 @@ final class HugoController {
                     let uploadRequest = AWSS3TransferManagerUploadRequest()
                     let pathURL = NSURL(fileURLWithPath: checkPath)
                     uploadRequest.body = pathURL
+                    uploadRequest.contentType = "text/html"
                     
                     let components = (checkPath as NSString).pathComponents
                     print("making upload for",itemName)
@@ -110,6 +109,17 @@ final class HugoController {
  
         do {
             try NSFileManager.defaultManager().linkItemAtURL(origContentURL, toURL: linkedContentURL)
+        } catch {
+            print("some linking error")
+        }
+    }
+    
+    private func linkThemeDir() {
+        let origThemeURL = NSURL(fileURLWithPath: "/Users/nickoneill/Projects/blog.nickoneill.name/themes/blog-nickoneill/", isDirectory: true)
+        let linkedThemeURL = NSURL(fileURLWithPath: themePath()!, isDirectory: true)
+        
+        do {
+            try NSFileManager.defaultManager().linkItemAtURL(origThemeURL, toURL: linkedThemeURL)
         } catch {
             print("some linking error")
         }
@@ -176,7 +186,16 @@ final class HugoController {
         
         return nil
     }
-    
+
+    private func themePath() -> String? {
+        if let supportPath = supportPath() {
+            let themesPath = (supportPath as NSString).stringByAppendingPathComponent("themes")
+            return (themesPath as NSString).stringByAppendingPathComponent("current_theme")
+        }
+        
+        return nil
+    }
+
     private func publicPath() -> String? {
         if let supportPath = supportPath() {
             return (supportPath as NSString).stringByAppendingPathComponent("public")
