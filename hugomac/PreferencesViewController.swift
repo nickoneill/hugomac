@@ -11,24 +11,62 @@ import Cocoa
 import CCNPreferencesWindowController
 import SwiftyUserDefaults
 
-class PreferencesViewController: NSViewController, CCNPreferencesWindowControllerProtocol {
-    @IBOutlet weak var contentText: NSTextField!
+class PreferencesViewController: NSViewController, CCNPreferencesWindowControllerProtocol, NSTextFieldDelegate {
     let contentURL = DefaultsKey<NSURL?>("contentURL")
-    
-    override func viewDidLoad() {
-        if let contentURL = Defaults[contentURL] {
-            print("got content",contentURL)
-        } else {
-            print("no content url")
+    let themeURL = DefaultsKey<NSURL?>("themeURL")
+    let siteURL = DefaultsKey<String>("siteURL")
+    let siteTitle = DefaultsKey<String>("siteTitle")
+
+    @IBOutlet weak var contentField: NSTextField! {
+        didSet {
+            if let contentURL = Defaults[contentURL] {
+                contentField.stringValue = contentURL.absoluteString
+                print("got content",contentURL)
+            } else {
+                print("no content url")
+            }
+        }
+    }
+    @IBOutlet weak var themeField: NSTextField! {
+        didSet {
+            if let themeURL = Defaults[themeURL] {
+                themeField.stringValue = themeURL.absoluteString
+                print("got theme",themeURL)
+            } else {
+                print("no theme url")
+            }
+        }
+    }
+    @IBOutlet weak var siteURLField: NSTextField! {
+        didSet {
+            siteURLField.stringValue = Defaults[siteURL]
+        }
+    }
+    @IBOutlet weak var siteTitleField: NSTextField! {
+        didSet {
+            siteTitleField.stringValue = Defaults[siteTitle]
         }
     }
     
-    @IBAction func pickContent(sender: NSButton) {
-        print("content")
+    override func viewDidLoad() {
+        //
+    }
+    
+    func control(control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
+        let control = control as! NSTextField
         
+        if control == siteTitleField {
+            Defaults[siteTitle] = siteTitleField.stringValue
+        } else if control == siteURLField {
+            Defaults[siteURL] = siteURLField.stringValue
+        }
+        
+        return true
+    }
+    
+    @IBAction func pickContent(sender: NSButton) {
         if let contentPath = getContentPath() {
             Defaults[contentURL] = contentPath
-            print("content path",contentPath)
         }
     }
     
@@ -44,10 +82,9 @@ class PreferencesViewController: NSViewController, CCNPreferencesWindowControlle
     }
 
     @IBAction func pickTheme(sender: NSButton) {
-        print("theme")
-        
-        let themePath = getThemePath()
-        print("theme path",themePath)
+        if let themePath = getThemePath() {
+            Defaults[themeURL] = themePath
+        }
     }
     
     func getThemePath() -> NSURL? {

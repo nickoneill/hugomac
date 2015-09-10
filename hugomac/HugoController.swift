@@ -23,12 +23,10 @@ final class HugoController {
     
     func publish() throws {
 //        writeConfig()
-//        linkContentDir()
-//        linkThemeDir()
-        _ = try? transferToS3()
-        return
+        linkContentDir()
+        linkThemeDir()
 
-        if let supportPath = supportPath(), let logPath = logPath() {
+        if let supportPath = supportPath() {
             let task = NSTask()
             task.launchPath = hugoPath()
             task.arguments = ["-s", supportPath, "-t", "current_theme"]
@@ -48,6 +46,8 @@ final class HugoController {
         } else {
             throw Error.CantReachSupportPath
         }
+        
+        _ = try? transferToS3()
     }
     
     private func transferToS3() throws {
@@ -81,7 +81,7 @@ final class HugoController {
             var isDir: ObjCBool = false
             if NSFileManager.defaultManager().fileExistsAtPath(checkPath, isDirectory: &isDir) {
                 if isDir {
-                    print("directory is",itemName)
+//                    print("directory is",itemName)
                     try makeUploadsForItemsInDirectory(checkPath)
                 } else {
                     let uploadRequest = AWSS3TransferManagerUploadRequest()
@@ -90,7 +90,7 @@ final class HugoController {
                     uploadRequest.contentType = "text/html"
                     
                     let components = (checkPath as NSString).pathComponents
-                    print("making upload for",itemName)
+//                    print("making upload for",itemName)
                     let inPublicComponents = (components as NSArray).subarrayWithRange(NSMakeRange(7, components.count - 7)) as! [String]
                     uploadRequest.key = NSString.pathWithComponents(inPublicComponents)
                     uploadRequest.bucket = "nickoneill-blog-test"
@@ -104,24 +104,40 @@ final class HugoController {
     }
     
     private func linkContentDir() {
-        let origContentURL = NSURL(fileURLWithPath: "/Users/nickoneill/Dropbox/Blog/content/", isDirectory: true)
-        let linkedContentURL = NSURL(fileURLWithPath: contentPath()!, isDirectory: true)
- 
+        if NSFileManager.defaultManager().fileExistsAtPath(contentPath()!) {
+            do {
+                try NSFileManager.defaultManager().removeItemAtPath(contentPath()!)
+            } catch {
+                print("error deleting linked content directory")
+            }
+        }
+        
         do {
+            let origContentURL = NSURL(fileURLWithPath: "/Users/nickoneill/Dropbox/Blog/content/", isDirectory: true)
+            let linkedContentURL = NSURL(fileURLWithPath: contentPath()!, isDirectory: true)
+
             try NSFileManager.defaultManager().linkItemAtURL(origContentURL, toURL: linkedContentURL)
         } catch {
-            print("some linking error")
+            print("some content linking error")
         }
     }
     
     private func linkThemeDir() {
-        let origThemeURL = NSURL(fileURLWithPath: "/Users/nickoneill/Projects/blog.nickoneill.name/themes/blog-nickoneill/", isDirectory: true)
-        let linkedThemeURL = NSURL(fileURLWithPath: themePath()!, isDirectory: true)
-        
+        if NSFileManager.defaultManager().fileExistsAtPath(themePath()!) {
+            do {
+                try NSFileManager.defaultManager().removeItemAtPath(themePath()!)
+            } catch {
+                print("error deleting linked theme directory")
+            }
+        }
+
         do {
+            let origThemeURL = NSURL(fileURLWithPath: "/Users/nickoneill/Projects/blog.nickoneill.name/themes/blog-nickoneill/", isDirectory: true)
+            let linkedThemeURL = NSURL(fileURLWithPath: themePath()!, isDirectory: true)
+            
             try NSFileManager.defaultManager().linkItemAtURL(origThemeURL, toURL: linkedThemeURL)
         } catch {
-            print("some linking error")
+            print("some theme linking error")
         }
     }
     
@@ -144,10 +160,8 @@ final class HugoController {
         let contentsPath = (bundlePath as NSString).stringByAppendingPathComponent("Contents")
         let resourcesPath = (contentsPath as NSString).stringByAppendingPathComponent("Resources")
         let hugoPath = (resourcesPath as NSString).stringByAppendingPathComponent("hugo_0.14_darwin_amd64")
-        print("path: ",resourcesPath)
         
-        let contents = try? NSFileManager.defaultManager().contentsOfDirectoryAtPath(resourcesPath)
-        print("contents: ",contents)
+        _ = try? NSFileManager.defaultManager().contentsOfDirectoryAtPath(resourcesPath)
         
         return hugoPath
     }
