@@ -51,7 +51,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             try HugoController.sharedInstance.publish()
             menuStatus.title = "published"
             print("publish success")
-        } catch HugoController.Error.DidntWork {
+        } catch HugoController.HugoError.DidntWork {
             menuStatus.title = "publish failed"
             print("publish failed")
         } catch {

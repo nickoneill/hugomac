@@ -9,42 +9,27 @@
 import Foundation
 import Cocoa
 import CCNPreferencesWindowController
-import SwiftyUserDefaults
 
 class PreferencesViewController: NSViewController, CCNPreferencesWindowControllerProtocol, NSTextFieldDelegate {
-    let contentURL = DefaultsKey<NSURL?>("contentURL")
-    let themeURL = DefaultsKey<NSURL?>("themeURL")
-    let siteURL = DefaultsKey<String>("siteURL")
-    let siteTitle = DefaultsKey<String>("siteTitle")
 
     @IBOutlet weak var contentField: NSTextField! {
         didSet {
-            if let contentURL = Defaults[contentURL] {
-                contentField.stringValue = contentURL.absoluteString
-                print("got content",contentURL)
-            } else {
-                print("no content url")
-            }
+            contentField.stringValue = ConfigurationManager.sharedInstance.contentPath
         }
     }
     @IBOutlet weak var themeField: NSTextField! {
         didSet {
-            if let themeURL = Defaults[themeURL] {
-                themeField.stringValue = themeURL.absoluteString
-                print("got theme",themeURL)
-            } else {
-                print("no theme url")
-            }
+            themeField.stringValue = ConfigurationManager.sharedInstance.themePath
         }
     }
     @IBOutlet weak var siteURLField: NSTextField! {
         didSet {
-            siteURLField.stringValue = Defaults[siteURL]
+            siteURLField.stringValue = ConfigurationManager.sharedInstance.siteURL
         }
     }
     @IBOutlet weak var siteTitleField: NSTextField! {
         didSet {
-            siteTitleField.stringValue = Defaults[siteTitle]
+            siteTitleField.stringValue = ConfigurationManager.sharedInstance.siteTitle
         }
     }
     
@@ -56,21 +41,22 @@ class PreferencesViewController: NSViewController, CCNPreferencesWindowControlle
         let control = control as! NSTextField
         
         if control == siteTitleField {
-            Defaults[siteTitle] = siteTitleField.stringValue
+            ConfigurationManager.sharedInstance.siteTitle = siteTitleField.stringValue
         } else if control == siteURLField {
-            Defaults[siteURL] = siteURLField.stringValue
+            ConfigurationManager.sharedInstance.siteURL = siteURLField.stringValue
         }
         
         return true
     }
     
     @IBAction func pickContent(sender: NSButton) {
-        if let contentPath = getContentPath() {
-            Defaults[contentURL] = contentPath
+        if let contentURL = getContentURL(), let path = contentURL.path {
+            ConfigurationManager.sharedInstance.contentPath = path
+            contentField.stringValue = path
         }
     }
     
-    func getContentPath() -> NSURL? {
+    func getContentURL() -> NSURL? {
         let myPanel = NSOpenPanel()
         myPanel.allowsMultipleSelection = false
         myPanel.canChooseDirectories = true
@@ -82,12 +68,13 @@ class PreferencesViewController: NSViewController, CCNPreferencesWindowControlle
     }
 
     @IBAction func pickTheme(sender: NSButton) {
-        if let themePath = getThemePath() {
-            Defaults[themeURL] = themePath
+        if let themeURL = getThemeURL(), let path = themeURL.path {
+            ConfigurationManager.sharedInstance.themePath = path
+            themeField.stringValue = path
         }
     }
     
-    func getThemePath() -> NSURL? {
+    func getThemeURL() -> NSURL? {
         let myPanel = NSOpenPanel()
         myPanel.allowsMultipleSelection = false
         myPanel.canChooseDirectories = true

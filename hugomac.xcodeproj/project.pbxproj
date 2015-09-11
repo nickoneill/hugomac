@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1D5F07250201F500F7D7C18D /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BF92A06DDEF7EFAD19B6FED /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		D0062C1A1BA3591A00EEA5CA /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0062C191BA3591A00EEA5CA /* ConfigurationManager.swift */; settings = {ASSET_TAGS = (); }; };
 		D0E460131B94D7CA0082A5C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E460121B94D7CA0082A5C3 /* AppDelegate.swift */; };
 		D0E460151B94D7CA0082A5C3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E460141B94D7CA0082A5C3 /* ViewController.swift */; };
 		D0E460171B94D7CA0082A5C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E460161B94D7CA0082A5C3 /* Assets.xcassets */; };
@@ -21,6 +22,7 @@
 /* Begin PBXFileReference section */
 		4BF92A06DDEF7EFAD19B6FED /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0AF7B671224BFB45DC9D350 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		D0062C191BA3591A00EEA5CA /* ConfigurationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationManager.swift; sourceTree = "<group>"; };
 		D0E4600F1B94D7CA0082A5C3 /* hugomac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hugomac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0E460121B94D7CA0082A5C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0E460141B94D7CA0082A5C3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 				D0E460251B9513790082A5C3 /* PreferencesViewController.swift */,
 				D0E460281B9515510082A5C3 /* hugomac.PreferencesViewController.xib */,
 				D0E460211B94DEC00082A5C3 /* HugoController.swift */,
+				D0062C191BA3591A00EEA5CA /* ConfigurationManager.swift */,
 				D0E460161B94D7CA0082A5C3 /* Assets.xcassets */,
 				D0E460181B94D7CA0082A5C3 /* Main.storyboard */,
 				D0E4601B1B94D7CA0082A5C3 /* Info.plist */,
@@ -222,6 +225,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0062C1A1BA3591A00EEA5CA /* ConfigurationManager.swift in Sources */,
 				D0E460151B94D7CA0082A5C3 /* ViewController.swift in Sources */,
 				D0E460221B94DEC00082A5C3 /* HugoController.swift in Sources */,
 				D0E460131B94D7CA0082A5C3 /* AppDelegate.swift in Sources */,
