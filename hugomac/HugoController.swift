@@ -102,6 +102,7 @@ final class HugoController {
                     let uploadRequest = AWSS3TransferManagerUploadRequest()
                     let pathURL = NSURL(fileURLWithPath: checkPath)
                     uploadRequest.body = pathURL
+                    uploadRequest.ACL = AWSS3ObjectCannedACL.PublicRead
                     uploadRequest.contentType = MIMEType((checkPath as NSString).pathExtension) ?? "text/html"
                     
                     let components = (checkPath as NSString).pathComponents
