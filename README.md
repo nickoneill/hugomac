@@ -10,6 +10,12 @@ Here's the general idea:
 
 That's it. 
 
+### installation
+
+* clone the source
+* do a `pod install` to get the deps from Cocoapods
+* open the `.xcworkspace` file and build/run
+
 ### S3 setup
 
 * create an S3 bucket and enable it for website hosting
