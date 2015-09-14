@@ -88,11 +88,11 @@ class PreferencesViewController: NSViewController, CCNPreferencesWindowControlle
     // prefs
     
     func preferenceIdentifier() -> String! {
-        return "preferences";
+        return "generation";
     }
     
     func preferenceTitle() -> String! {
-        return "Prefs"
+        return "Generation"
     }
     
     func preferenceIcon() -> NSImage! {

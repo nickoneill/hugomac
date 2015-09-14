@@ -19,6 +19,9 @@ final class HugoController {
         case NoContentSet
         case NoBaseURLSet
         case NoTitleSet
+        case NoBucketName
+        case NoAccessKey
+        case NoSecretKey
         case CantReachSupportPath
         case CantReadHugoOutput
         case NoPublishDirectory
@@ -60,7 +63,15 @@ final class HugoController {
             throw HugoError.CantReachSupportPath
         }
         
-        _ = try? transferToS3()
+        do {
+            try transferToS3()
+        } catch HugoError.NoPublishDirectory {
+            print("there was no publish directory")
+        } catch HugoError.NoBucketName {
+            print("no bucket name")
+        } catch {
+            print("some other publishing error")
+        }
     }
     
     private func transferToS3() throws {
@@ -69,11 +80,23 @@ final class HugoController {
                 throw HugoError.NoPublishDirectory
             }
             
+            if ConfigurationManager.sharedInstance.bucketName.isEmpty {
+                throw HugoError.NoBucketName
+            }
+            
+            if ConfigurationManager.sharedInstance.accessKey.isEmpty {
+                throw HugoError.NoAccessKey
+            }
+
+            if let secretKey = ConfigurationManager.sharedInstance.secretKey where secretKey.isEmpty {
+                throw HugoError.NoSecretKey
+            }
+
             try makeUploadsForItemsInDirectory(publicPath)
             
 //            print("made these uploads: ",uploadRequests)
 
-            let credentialsProvider = AWSStaticCredentialsProvider(accessKey: "AKIAJI5JMQGAWZ6CKXOA", secretKey: "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")
+            let credentialsProvider = AWSStaticCredentialsProvider(accessKey: ConfigurationManager.sharedInstance.accessKey, secretKey: ConfigurationManager.sharedInstance.secretKey)
             let configuration = AWSServiceConfiguration(region: AWSRegionType.USWest1, credentialsProvider: credentialsProvider)
             AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
 
@@ -102,6 +125,7 @@ final class HugoController {
                     let uploadRequest = AWSS3TransferManagerUploadRequest()
                     let pathURL = NSURL(fileURLWithPath: checkPath)
                     uploadRequest.body = pathURL
+//                    uploadRequest.cacheControl
                     uploadRequest.ACL = AWSS3ObjectCannedACL.PublicRead
                     uploadRequest.contentType = MIMEType((checkPath as NSString).pathExtension) ?? "text/html"
                     
@@ -109,7 +133,7 @@ final class HugoController {
 //                    print("making upload for",itemName)
                     let inPublicComponents = (components as NSArray).subarrayWithRange(NSMakeRange(7, components.count - 7)) as! [String]
                     uploadRequest.key = NSString.pathWithComponents(inPublicComponents)
-                    uploadRequest.bucket = "nickoneill-blog-test"
+                    uploadRequest.bucket = ConfigurationManager.sharedInstance.bucketName
                     uploadRequests.append(uploadRequest)
                 }
             } else {

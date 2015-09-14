@@ -37,7 +37,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // set up preferences windows
         preferences.centerToolbarItems = false
-        preferences.setPreferencesViewControllers([PreferencesViewController()])
+        preferences.setPreferencesViewControllers([PreferencesViewController(),PublishingViewController()])
     }
     
     func prefs() {

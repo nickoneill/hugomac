@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftyUserDefaults
+import Locksmith
 
 final class ConfigurationManager {
     static let sharedInstance = ConfigurationManager()
@@ -49,6 +50,44 @@ final class ConfigurationManager {
         }
         set(newTitle) {
             Defaults[siteTitleKey] = newTitle
+        }
+    }
+
+    private let bucketNameKey = DefaultsKey<String>("bucketName")
+    var bucketName: String {
+        get {
+            return Defaults[bucketNameKey]
+        }
+        set(newName) {
+            Defaults[bucketNameKey] = newName
+        }
+    }
+
+    private let accessKeyKey = DefaultsKey<String>("accessKey")
+    var accessKey: String {
+        get {
+            return Defaults[accessKeyKey]
+        }
+        set(newKey) {
+            Defaults[accessKeyKey] = newKey
+        }
+    }
+    
+    private let locksmithS3Key = "S3Secret"
+    private let locksmithDictionaryKey = "secretKey"
+    var secretKey: String? {
+        get {
+            let dictionary = Locksmith.loadDataForUserAccount(locksmithS3Key)
+            if let dictionary = dictionary {
+                return (dictionary[locksmithDictionaryKey] as? String)
+            } else {
+                return nil
+            }
+        }
+        set(newKey) {
+            if let newKey = newKey {
+                _ = try? Locksmith.saveData([locksmithDictionaryKey: newKey], forUserAccount: locksmithS3Key)
+            }
         }
     }
 }

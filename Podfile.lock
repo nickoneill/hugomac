@@ -7,6 +7,7 @@ PODS:
   - Fabric-OSX (1.4.0):
     - Fabric-OSX/Base (= 1.4.0)
   - Fabric-OSX/Base (1.4.0)
+  - Locksmith (2.0.1)
   - SwiftyUserDefaults (1.3.0)
 
 DEPENDENCIES:
@@ -15,6 +16,7 @@ DEPENDENCIES:
   - CCNPreferencesWindowController
   - Crashlytics-OSX (~> 3.1)
   - Fabric-OSX (~> 1.4)
+  - Locksmith
   - SwiftyUserDefaults (from `https://github.com/radex/SwiftyUserDefaults`, branch
     `next`)
 
@@ -46,6 +48,7 @@ SPEC CHECKSUMS:
   CCNPreferencesWindowController: 2162438b1328d1d15ce5ee50289a57c7b3857c7a
   Crashlytics-OSX: 04168ba83ba0c35f778c052f6eb2481b827042c4
   Fabric-OSX: 439c2a24d4cbf43dd570749ab09ce3cda59ecabb
+  Locksmith: 2c7bdc5c3a31a97d748791ad830310b1af4b8549
   SwiftyUserDefaults: 507da0dcabec653f76ecab845635a6d220c1484a
 
-COCOAPODS: 0.37.2
+COCOAPODS: 0.38.0
