@@ -143,6 +143,7 @@
 				TargetAttributes = {
 					D0E4600E1B94D7CA0082A5C3 = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = H6S4PTUWAA;
 					};
 				};
 			};
@@ -340,14 +341,13 @@
 			baseConfigurationReference = D88362590EF4BE8DACE77AD0 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = hugomac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-l\"Pods-AWSCore\"",
-					"-l\"Pods-AWSS3\"",
 					"-l\"c++\"",
 					"-l\"sqlite3\"",
 					"-l\"z\"",
@@ -373,14 +373,13 @@
 			baseConfigurationReference = B0AF7B671224BFB45DC9D350 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = hugomac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-l\"Pods-AWSCore\"",
-					"-l\"Pods-AWSS3\"",
 					"-l\"c++\"",
 					"-l\"sqlite3\"",
 					"-l\"z\"",
