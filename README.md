@@ -1,5 +1,7 @@
 # hugomac
 
+<p align="center"><img src="hugomac-example.png" width="210" /></p>
+
 Hugomac is an osx menubar app to publish your blog directly to Amazon S3. It uses the wonderful [Hugo](https://github.com/spf13/hugo) static site generator to create your blog without having to touch a command line.
 
 Here's the general idea:
